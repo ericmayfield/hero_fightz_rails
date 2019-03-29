@@ -1,8 +1,15 @@
 Rails.application.routes.draw do
-  resources :heros
-  resources :teams #do index to view heroes or individual hero in a team, /teams/1/heros/1 check if current user is on team otherwise redirect
-  resources :users #/users/1/heroes
-  resources :sessions
+  resources :heros, only: [:index, :show]
+
+  resources :teams do #do index to view heroes or individual hero in a team, /teams/1/heros/1 check if current user is on team otherwise redirect
+    resources :heros, only: [:index, :show]
+  end
+
+  resources :users do
+    resources :heros
+  end
+
+  resources :sessions, only: [:create, :destroy]
 
   get '/register' => 'users#new'
   get '/login' => 'sessions#new'
