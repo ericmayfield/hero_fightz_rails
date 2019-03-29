@@ -5,5 +5,7 @@ Rails.application.routes.draw do
   resources :sessions
   get '/register' => 'users#new'
   get '/login' => 'sessions#new'
+  get '/logout' => 'sessions#destroy'
+  get '/account' => 'users#show'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

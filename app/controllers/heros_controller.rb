@@ -11,4 +11,10 @@ class HerosController < ApplicationController
     def show
         @hero = Hero.find_by(id: params[:id])
     end
+
+    private
+
+    def user_params
+        params.require(:hero).permit(:name, :battle_cry, :bio, :img_path, :user_id)
+    end
 end

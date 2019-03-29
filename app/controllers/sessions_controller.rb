@@ -5,4 +5,9 @@ class SessionsController < ApplicationController
         session[:user_id] = @user.id
         redirect_to user_path(@user.id)
     end
+
+    def destroy
+        session.delete :user_id
+        redirect_to welcome_path
+    end
 end
