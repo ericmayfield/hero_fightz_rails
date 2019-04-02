@@ -1,30 +1,30 @@
-<form method="POST" action="/heroes">
-    <input type="hidden" name="user_id" value="<%=session[:user_id]%>">
+<%= form_for @hero do |f| %>
+    <%= f.hidden_field(:user_id, value: current_user.id) %>
     <p>Choose Your Hero's Avatar</p>
     <section class="row" style="margin-bottom:15px;">
         <div class="col-xs">
-            <img width="200" src="/images/archer.jpg">
-            <br><center><input type="radio" name="img_path" value="archer.jpg"></center>
+            <%= image_tag("archer.jpg", size: "200x144") %>
+            <br><center><%= f.radio_button(:img_path, "archer.jpg") %></center>
         </div>
         <div class="col-xs">
-            <img width="200" src="/images/paladin.jpg">
-            <br><center><input type="radio" name="img_path" value="paladin.jpg"></center>
+            <%= image_tag("paladin.jpg", size: "200x144") %>
+            <br><center><%= f.radio_button(:img_path, "paladin.jpg") %></center>
         </div>
         <div class="col-xs">
-            <img width="200" src="/images/priest.jpg">
-            <br><center><input type="radio" name="img_path" value="priest.jpg"></center>
+            <%= image_tag("priest.jpg", size: "200x144") %>
+            <br><center><%= f.radio_button(:img_path, "priest.jpg") %></center>
         </div>
         <div class="col-xs">
-            <img width="200" src="/images/warrior.jpg">
-            <br><center><input type="radio" name="img_path" value="warrior.jpg"></center>
+            <%= image_tag("warrior.jpg", size: "200x144") %>
+            <br><center><%= f.radio_button(:img_path, "warrior.jpg") %></center>
         </div>
         <div class="col-xs">
-            <img width="200" src="/images/wizard.jpg">
-            <br><center><input type="radio" name="img_path" value="wizard.jpg"></center>
+            <%= image_tag("wizard.jpg", size: "200x144") %>
+            <br><center><%= f.radio_button(:img_path, "wizard.jpg") %></center>
         </div>
     </section>
-    <p><label class="label">Name:</label> <input type="text" name="name"></p>
-    <p><label class="label">Battlecry:</label> <input type="text" name="battle_cry"></p>
-    <p><label class="label">Bio:</label> <textarea name="bio"></textarea></p>
-    <p><input class="btn btn-info" type="submit" value="Create Hero"></p>
-</form>
+    <p><label class="label">Name:</label> <%= f.text_field :name %></p>
+    <p><label class="label">Battlecry:</label> <%= f.text_field :battle_cry %></p>
+    <p><label class="label">Bio:</label> <%= f.text_area :bio %></p>
+    <p><%= f.submit "Create Hero", class: "btn btn-info" %></p>
+<% end %>
