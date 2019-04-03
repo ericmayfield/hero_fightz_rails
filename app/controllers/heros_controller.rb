@@ -1,4 +1,14 @@
 class HerosController < ApplicationController
+    before_action :load_hero, only:[:show, :edit, :update, :destroy]
+    before_action :is_user
+
+    def index
+        @heros = current_user.heros
+    end
+
+    def show
+    end
+
     def new
         @hero = Hero.new
     end
@@ -8,13 +18,27 @@ class HerosController < ApplicationController
         render :show
     end
 
-    def show
-        @hero = Hero.find_by(id: params[:id])
+    def edit
+    end
+
+    def update
+        @hero.new(hero_params)
+        @hero.save
+        render :show
+    end
+
+    def destroy
+        @hero.delete
+        redirect_to account_path(current_user)
     end
 
     private
 
-    def user_params
+    def hero_params
         params.require(:hero).permit(:name, :battle_cry, :bio, :img_path, :user_id)
+    end
+
+    def load_hero
+        @hero = Hero.find_by(id: params[:id])
     end
 end
