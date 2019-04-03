@@ -3,9 +3,13 @@ class SessionsController < ApplicationController
         #add if/else struct, check for auth, using binding
         #for omniauth generate securerand u.password = method_from securerand
         @user = User.find_by(email: params[:email])
-        return head(:forbidden) unless @user.authenticate(params[:password])
-        session[:user_id] = @user.id
-        redirect_to user_path(@user.id)
+        if @user.try(:authenticate, params[:password])
+            session[:user_id] = @user.id
+            redirect_to user_path(@user.id)
+        else
+            flash[:alert] = "Username or Password Incorrect"
+            redirect_to login_path
+        end
     end
 
     def destroy
