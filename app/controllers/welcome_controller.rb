@@ -1,5 +1,5 @@
 class WelcomeController < ApplicationController
     def home
-        @heros = Hero.all
+        @heros = Hero.last_five_heros
     end
 end
